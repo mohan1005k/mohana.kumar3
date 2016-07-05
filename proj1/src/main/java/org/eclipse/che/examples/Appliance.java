@@ -70,54 +70,9 @@ import java.util.Date;
    }
 
 }*/
- class Details
-{   
-    enum State
-    {
-        ON,OFF;
-    }
-        private String name;
-        public State state; 
-        private int id;
-        private long startTime;
-        
-        public Details()
-        {
-            Scanner in = new Scanner(System.in);
-            name=in.nextLine();
-            state=State.ON;
-            id=Appliance.size;
-            startTime=System.currentTimeMillis();
-            Appliance.size++;
-      }
-      public long getTime()
-      {
-          return startTime;
-      }
-      public void setTime(long time)
-      {
-          startTime=time;
-      }
-      public void switchStatus()
-      {
-          if(state==State.ON)
-          {
-              state=State.OFF;
-          }
-          else
-          {
-              state=State.ON;
-          }
-      }
-      public String getName()
-      {
-          return name;
-      }
-      public void print()
-      {
-          System.out.println(name+" "+state+" "+id+" "+startTime);
-      }
-}
+
+ 
+
 /*public class ScheduledTask extends TimerTask {
 
 	Date now; // to display current time
@@ -172,42 +127,32 @@ public class Appliance {
 
     public static ArrayList<Details>objects=new ArrayList<Details>();
     
-
-    public static void main(String [] args)
+    public static void perform(int num,String str,int num2)
     {
-   
-   // Thread t1 = new Thread(new RunnableImpl());
-    
-        Timer time = new Timer(); // Instantiate Timer Object
-		long a=0,b=5000;
-		time.schedule(new Task(),a,b);
-	   
-        Scanner in = new Scanner(System.in);
-        int num;
-        while(true)
-        {
-            System.out.println("1.Add device\n2.Switch ON a device\n3.Switch OFF a device\n4.Display status of machines");
-            num=in.nextInt();
+            Scanner in = new Scanner(System.in);
+    //        System.out.println("1.Add device\n2.Switch ON a device\n3.Switch OFF a device\n4.Display status of machines");
+      //      num=in.nextInt();
             if(num==1)
             {
-                
-                objects.add(new Details());
+                  
+                objects.add(new Details(str));
              /*   t1 = new Thread(new RunnableImpl());
                 t1.start();
                 t1.run();*/
             }
             else if(num==2)
             {
-                    num=in.nextInt();
-                    Details ob=(Details)objects.get(num);
-                    ob.state=Details.State.ON;
-                    
+        //            num=in.nextInt();
+                    Details ob=(Details)objects.get(num2);
+                    ob.state=State.ON;
+                    ob.print();
             }
             else if(num==3)
             {
-                num=in.nextInt();
-                Details ob=(Details)objects.get(num);
-                ob.state=Details.State.OFF;
+               // num=in.nextInt();
+                Details ob=(Details)objects.get(num2);
+                ob.state=State.OFF;
+                ob.print();
             }
             else if(num==4)
             {
@@ -220,6 +165,24 @@ public class Appliance {
             {
                 System.out.println("Not a valid choice");
             }
-        }
     }
+   
+    public static void main(String [] args)
+    {
+   
+   // Thread t1 = new Thread(new RunnableImpl());
+    
+     /*   Timer time = new Timer(); // Instantiate Timer Object
+		long a=0,b=5000;
+		time.schedule(new Task(),a,b);
+	   */
+        Scanner in = new Scanner(System.in);
+        int num;
+        perform(1,"AC",0);
+        perform(1,"WH",0);
+        perform(1,"CO",0);
+        perform(3,"",0);
+        perform(3,"",1);
+        }
+    
 }
