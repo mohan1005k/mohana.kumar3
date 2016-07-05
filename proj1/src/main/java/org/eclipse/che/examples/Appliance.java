@@ -84,7 +84,7 @@ import java.util.Date;
 	}
 }
 */
-class Task extends TimerTask {
+/*class Task extends TimerTask {
 
 
     public void run() {
@@ -120,12 +120,21 @@ class Task extends TimerTask {
                 }
 
     }
-}
+}*/
 public class Appliance {
     
     static public int size=0;
 
+    
+
     public static ArrayList<Details>objects=new ArrayList<Details>();
+    
+    public Appliance()
+    {
+        Timer time = new Timer(); // Instantiate Timer Object
+		long a=0,b=1000;
+		time.schedule(new Task(),a,b);
+    }
     
     public static void perform(int num,String str,int num2)
     {
@@ -140,7 +149,7 @@ public class Appliance {
                 t1.start();
                 t1.run();*/
             }
-            else if(num==2)
+            /*else if(num==2)
             {
         //            num=in.nextInt();
                     Details ob=(Details)objects.get(num2);
@@ -164,7 +173,7 @@ public class Appliance {
             }else
             {
                 System.out.println("Not a valid choice");
-            }
+            }*/
     }
    
     public static void main(String [] args)
@@ -175,14 +184,15 @@ public class Appliance {
      /*   Timer time = new Timer(); // Instantiate Timer Object
 		long a=0,b=5000;
 		time.schedule(new Task(),a,b);
-	   */
+	   
         Scanner in = new Scanner(System.in);
         int num;
-        perform(1,"AC",0);
-        perform(1,"WH",0);
-        perform(1,"CO",0);
-        perform(3,"",0);
-        perform(3,"",1);
-        }
+        Appliance.perform(1,"AC",0);
+        Appliance.perform(1,"WH",0);
+        Appliance.perform(1,"CO",0);
+        Appliance.perform(3,"",0);
+        Appliance.perform(3,"",1);
+       */
+       }
     
 }
