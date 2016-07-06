@@ -34,21 +34,34 @@ public class Appliance {
                 t1.start();
                 t1.run();*/
             }
-            /*else if(num==2)
+            else if(num==2)
             {
         //            num=in.nextInt();
                     Details ob=(Details)objects.get(num2);
-                    ob.state=State.ON;
-                    ob.print();
+                    //System.out.println(ob.state+"-------- for id "+num2+"----"+ob.getId()+" "+ob.getName());
+                    if(ob.state==State.ON)
+                    {
+                        throw new IllegalArgumentException();
+                    }
+                    else
+                    {
+                        ob.switchStatus();;
+                    }
+
             }
             else if(num==3)
             {
-               // num=in.nextInt();
-                Details ob=(Details)objects.get(num2);
-                ob.state=State.OFF;
-                ob.print();
+               Details ob=(Details)objects.get(num2);
+               if(ob.state==State.OFF)
+                    {
+                        throw new IllegalArgumentException();
+                    }
+                    else
+                    {
+                        ob.switchStatus();
+                    }
             }
-            else if(num==4)
+            /*else if(num==4)
             {
                 for(int i=0;i<Appliance.size;i++)
                 {
@@ -66,7 +79,7 @@ public class Appliance {
    
    // Thread t1 = new Thread(new RunnableImpl());
     
-     /*   Timer time = new Timer(); // Instantiate Timer Object
+       /* Timer time = new Timer(); // Instantiate Timer Object
 		long a=0,b=5000;
 		time.schedule(new Task(),a,b);
 	   
@@ -78,6 +91,6 @@ public class Appliance {
         Appliance.perform(3,"",0);
         Appliance.perform(3,"",1);
        */
-       }
+      }
     
 }

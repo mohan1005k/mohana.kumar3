@@ -22,11 +22,11 @@ public class Task extends TimerTask {
                        }
                        else if(name.compareTo("WH")==0)
                        {
-                           limit=1;
+                           limit=5;
                        }
                        else if(name.compareTo("CO")==0)
                        {
-                           limit=1;
+                           limit=5;
                        }
                        if(diff>=limit)
                        {

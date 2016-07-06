@@ -77,7 +77,6 @@ public void test3()
          assertEquals(State.ON,ob.getStatus());
     
 }
-
 @Test 
 public void test4()
 {
@@ -104,9 +103,9 @@ public void test6()
     
     Appliance a=new Appliance();
     Appliance.size=0;
-    //Appliance.perform(1,"AC",0);
+    Appliance.perform(1,"AC",0);
    // Appliance.perform(1,"WH",0);
-    Appliance.perform(1,"CO",0);
+    //Appliance.perform(1,"CO",0);
     long startTime=System.currentTimeMillis();
    
    while(true)
@@ -133,7 +132,45 @@ public void test6()
 */
 }
 
+@Test 
+public void test7()
+{
+   try
+   {
+   
+   Appliance a=new Appliance();
+    //Appliance.size=0;
+    Appliance.perform(1,"WH",0);
+    Appliance.perform(2,"",Appliance.size-1);
+    assertFalse(true);
+    }
+    catch(IllegalArgumentException e)
+    {
+        assertTrue(true);
+    }
 
 
+}
+
+@Test 
+public void test8()
+{
+   try
+   {
+   
+   Appliance a=new Appliance();
+    //Appliance.size=0;
+    Appliance.perform(1,"CO",0);
+    Appliance.perform(3,"",Appliance.size-1);
+    Appliance.perform(3,"",Appliance.size-1);
+    assertFalse(true);
+    }
+    catch(IllegalArgumentException e)
+    {
+        assertTrue(true);
+    }
+
+
+}
 
 }
