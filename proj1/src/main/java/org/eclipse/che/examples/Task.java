@@ -7,7 +7,6 @@ public class Task extends TimerTask {
 
 
     public void run() {
-          //              System.out.println("its here\n");
                 for(int i=0;i<Appliance.size;i++)
                 {
                        Details ob=Appliance.objects.get(i);
@@ -26,10 +25,11 @@ public class Task extends TimerTask {
                        }
                        else if(name.compareTo("CO")==0)
                        {
-                           limit=5;
+                           limit=6;
                        }
                        if(diff>=limit)
                        {
+                           //resetting timer and switching status
                            Appliance.objects.get(i).setTime(System.currentTimeMillis());
                            Appliance.objects.get(i).switchStatus();
                            System.out.println("Status changes for: "+Appliance.objects.get(i).getName()+" with id: "+Appliance.objects.get(i).getId());

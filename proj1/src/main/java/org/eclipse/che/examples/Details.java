@@ -16,7 +16,7 @@ import java.util.Date;
         
         public Details(String str)
         {
-     //       Scanner in = new Scanner(System.in);
+            //not a valid machine
             if(!(str.compareTo("AC")==0 || str.compareTo("WH")==0 || str.compareTo("CO")==0))
             {
                 if(str.compareTo("")==0)
