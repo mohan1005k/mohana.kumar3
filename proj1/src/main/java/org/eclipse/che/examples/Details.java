@@ -35,6 +35,10 @@ import java.util.Date;
             startTime=System.currentTimeMillis();
             Appliance.size++;
         }
+        public int getId()
+        {
+            return id;
+        }
       public long getTime()
       {
           return startTime;
