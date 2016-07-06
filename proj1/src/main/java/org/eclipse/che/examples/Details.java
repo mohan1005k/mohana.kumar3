@@ -1,20 +1,34 @@
 package org.eclipse.che.examples;
 import java.io.*;
 import java.util.*;
+
 import static java.util.concurrent.TimeUnit.*;
+
 import java.util.TimerTask;
 import java.util.Date;
 
  public class Details
 {   
-            private String name;
+        private String name;
         public State state; 
         private int id;
         private long startTime;
         
         public Details(String str)
         {
-            Scanner in = new Scanner(System.in);
+     //       Scanner in = new Scanner(System.in);
+            if(!(str.compareTo("AC")==0 || str.compareTo("WH")==0 || str.compareTo("CO")==0))
+            {
+                if(str.compareTo("")==0)
+                {
+                    throw null;
+                }
+                else
+                {
+                    throw new IllegalArgumentException();
+                }
+
+            }
             name=str;
             state=State.ON;
             id=Appliance.size;

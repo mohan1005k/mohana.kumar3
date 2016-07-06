@@ -4,6 +4,7 @@ import org.eclipse.che.examples.*;
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
 import static java.util.concurrent.TimeUnit.*;
+import static org.junit.Assert.*;
 import java.util.TimerTask;
 import java.util.Date;
 
@@ -24,6 +25,41 @@ public void test1()
   
     
 }*/
+@Test 
+public void test1()
+{
+    try
+    {
+     Details ob=new Details("fan");
+     assertFalse(true);
+     
+     //assertEquals("fan",ob.getName());
+    }
+    catch(IllegalArgumentException e)
+    {
+        assertTrue(true);
+    }
+ 
+
+}
+@Test 
+public void test11()
+{
+    try
+    {
+     Details ob=new Details("");
+     assertFalse(true);
+     
+     //assertEquals("fan",ob.getName());
+    }
+    catch(NullPointerException e)
+    {
+        assertTrue(true);
+    }
+ 
+
+}
+
 
 @Test
 public void test2()
@@ -49,13 +85,13 @@ public void test4()
  
   ob.switchStatus();
   assertEquals(State.OFF,ob.getStatus());
- 
+  ob.switchStatus();
+  assertEquals(State.ON,ob.getStatus());
 }
 
 @Test
-public void test6()
+public void test5()
 {
-   // Appliance a=new Appliance();
     Appliance.size=0;
     Appliance.perform(1,"AC",0);
     Appliance.perform(1,"WH",0);
@@ -63,13 +99,13 @@ public void test6()
     assertEquals(3,Appliance.size);    
 }
 @Test 
-public void test5()
+public void test6()
 {
     
     Appliance a=new Appliance();
     Appliance.size=0;
-    Appliance.perform(1,"AC",0);
-    Appliance.perform(1,"WH",0);
+    //Appliance.perform(1,"AC",0);
+   // Appliance.perform(1,"WH",0);
     Appliance.perform(1,"CO",0);
     long startTime=System.currentTimeMillis();
    
@@ -77,7 +113,7 @@ public void test5()
    {
          float diff=(System.currentTimeMillis()-startTime);
                        diff=diff/1000;
-                       float limit=2;
+                       float limit=1.1f;
                        
                        if(diff>=limit)
                     {
@@ -85,7 +121,7 @@ public void test5()
                     }
                        
    }
-                      Details ob=Appliance.objects.get(1);
+                      Details ob=Appliance.objects.get(0);
                        assertEquals(State.OFF,ob.getStatus());
   /*
          for(int i=0;i<Appliance.size;i++)

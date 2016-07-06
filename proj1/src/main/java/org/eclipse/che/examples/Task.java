@@ -32,7 +32,7 @@ public class Task extends TimerTask {
                        {
                            Appliance.objects.get(i).setTime(System.currentTimeMillis());
                            Appliance.objects.get(i).switchStatus();
-                           System.out.println("Status changes for:\n");
+                           //System.out.println("Status changes for:\n");
                            //ob.print();
                        }
                    
