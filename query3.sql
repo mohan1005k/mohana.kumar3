@@ -1,0 +1,1 @@
+select `User`.`UserId`,avg(`Orders`.`QuantityOrdered`) from `cnu2016_mohana_kumar`.`User` INNER JOIN `cnu2016_mohana_kumar`.`Orders` ON `Orders`.`User_UserId`=`User`.`UserId` GROUP BY `User`.`UserId`;
