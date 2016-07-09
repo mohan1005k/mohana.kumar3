@@ -34,7 +34,7 @@ public class WebServicesController {
 
 
 
-    @RequestMapping(value="/products/{Idd}",method = RequestMethod.GET)
+    @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.GET)
     public ResponseEntity<?> products(@PathVariable Integer Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
@@ -44,7 +44,7 @@ public class WebServicesController {
          return ResponseEntity.status(HttpStatus.NOT_FOUND).body(product);
     }
 
-    @RequestMapping(value="/products/{Idd}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.DELETE)
     public ResponseEntity<?> products(@PathVariable int Idd)
     {
 
@@ -60,7 +60,7 @@ public class WebServicesController {
 
     }
 
-    @RequestMapping(value="/{Idd}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/api/{Idd}",method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable int Idd)
     {
 
@@ -74,7 +74,7 @@ public class WebServicesController {
 
     }
 
-    @RequestMapping(value="/products3")
+    @RequestMapping(value="/api/products3")
     public List<Product>products2()
     {
         List<Product>resultRecords=new ArrayList<>();
@@ -89,13 +89,13 @@ public class WebServicesController {
         return  resultRecords;
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/products", method = RequestMethod.POST)
     public ResponseEntity<?> products3(@RequestBody Product1 product1)
     {
         return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(new Product(product1.getCode(),product1.getDescription())));
     }
 
-    @RequestMapping(value = "/products/{Idd}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/products/{Idd}", method = RequestMethod.PUT)
     public ResponseEntity<?> products4(@RequestBody Product1 product1,@PathVariable int Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
@@ -107,7 +107,7 @@ public class WebServicesController {
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(new Product(Idd,product1.getCode(),product1.getDescription())));
     }
 
-    @RequestMapping(value = "/products/{Idd}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/api/products/{Idd}", method = RequestMethod.PATCH)
     public ResponseEntity<?> products5(@RequestBody Product1 product1,@PathVariable int Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
@@ -124,7 +124,7 @@ public class WebServicesController {
 
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/products", method = RequestMethod.GET)
     public List<Product1> getProducts()
     {
         List<Product1> returnProduct = new ArrayList<>();
