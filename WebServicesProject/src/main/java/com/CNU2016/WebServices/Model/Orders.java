@@ -47,6 +47,10 @@ public class Orders {
     }
 */
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "FkUserId")
+    private User user_for_order;
     public User getUser_for_order() {
         return user_for_order;
     }
@@ -55,10 +59,7 @@ public class Orders {
         this.user_for_order = user_for_order;
     }
 
-    @JsonIgnore
-@ManyToOne(fetch = FetchType.LAZY)
-@JoinColumn(name = "FkUserId")
-private User user_for_order;
+
 
 /*
     public int getFkUserId() {
@@ -112,7 +113,13 @@ private User user_for_order;
         this.user_for_order=user;
         this.orderDate=timestamp;
     }
-
+    public Orders(int orderId,String status,User user,Timestamp timestamp)
+    {
+        this.orderDate=timestamp;
+        this.orderId=orderId;
+        this.user_for_order=user;
+        this.status=status;
+    }
     /*
     public Orders(int orderId,String status,int user_UserId,String dateofOrder)
     {

@@ -14,5 +14,6 @@ import java.util.*;
  */
 public interface UserRepository extends CrudRepository<User,Integer> {
     User findByEmail(String email);
-
+    User findDistinctByName(String name);
+    User findByName(String name);
 }

@@ -10,14 +10,13 @@ import com.CNU2016.WebServices.Model.Orders;
 import com.CNU2016.WebServices.Model.*;
 import com.CNU2016.WebServices.Pojo.*;
 import com.CNU2016.WebServices.PrimaryKey.OrderProductPrimaryKey;
-import com.CNU2016.WebServices.Repositories.OrderHasProductRepository;
-import com.CNU2016.WebServices.Repositories.OrdersRepository;
+import com.CNU2016.WebServices.Repositories.*;
 
-import com.CNU2016.WebServices.Repositories.ProductRepository;
-import com.CNU2016.WebServices.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.IllegalTransactionStateException;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -34,14 +33,16 @@ public class OrdersController {
     @Autowired
     OrderHasProductRepository orderHasProductRepository;
 
-    /* @RequestMapping(value="/productsfororder",method=RequestMethod.GET)
-     public List<Product> products()
-     {
-         return ordersRepository.findByOrderId();
-     }
- */
+    @Autowired
+    PaymentRepository paymentRepository;
+
+    @Autowired
+    FeedbackRepository feedbackRepository;
+
+
+
     @RequestMapping(value="/orders/{Idd}",method = RequestMethod.GET)
-    public ResponseEntity<?> orders(@PathVariable Integer Idd)
+    public ResponseEntity<?> getOrder(@PathVariable Integer Idd)
     {
         Orders order=ordersRepository.findOne(Idd);
         if(order!=null) {
@@ -51,7 +52,7 @@ public class OrdersController {
     }
 
     @RequestMapping(value="/ordersuser/{Idd}",method = RequestMethod.GET)
-    public User orders2(@PathVariable Integer Idd)
+    public User getOrdersUser(@PathVariable Integer Idd)
     {
         User user1=ordersRepository.findOne(Idd).getUser_for_order();
         return new User(user1.getName());
@@ -75,51 +76,89 @@ public class OrdersController {
     }
 
 
-    @RequestMapping(value = "/createorder2", method = RequestMethod.POST)
-    public ResponseEntity<?> orders3(@RequestBody OrderHelper orderHelper)
+    @RequestMapping(value = "/api/order", method = RequestMethod.POST)
+    public ResponseEntity<?> makeOrder(@RequestBody OrderHelper orderHelper)
     {
 
-        String email=orderHelper.getEmailId();
-        User user=userRepository.findByEmail(email);
-        User user2;
-        if(user==null)
-        {
-             user2=new User(email);
-             userRepository.save(user2);
-        }
-        else {
-            user2 = user;
-        }
+        String name=orderHelper.getUser_name();
+        User user=userRepository.findByName(name);
         Timestamp timestamp=new Timestamp(new Date().getTime());
-            return ResponseEntity.status(HttpStatus.CREATED).body(ordersRepository.save(new Orders("Created",user2,timestamp)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(ordersRepository.save(new Orders("Created",user,timestamp)));
 
     }
 
-
-    @RequestMapping(value="/additemtoorder",method=RequestMethod.POST)
-    public ResponseEntity<?>orders4(@RequestBody AddItemToOrder addItemToOrder)
+    @Transactional
+    @RequestMapping(value="/api/{Idd}/orderlineitem",method=RequestMethod.POST)
+    public ResponseEntity<?>orderLineItem(@PathVariable Integer Idd,@RequestBody AddItemToOrder addItemToOrder)
     {
 
 
         int productId=addItemToOrder.getProductId();
 
         int quantity=addItemToOrder.getQuantity();
-        int orderId=addItemToOrder.getOrderId();
-
-        if(productRepository.findOne(productId)==null)
+        int orderId=Idd;
+        Product product=productRepository.findByProductIdAndAvailability(productId,true);
+        if(product==null)
         {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
         }
 
-        if(ordersRepository.findOne(orderId)==null)
-        {
+        if(ordersRepository.findOne(orderId)==null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order Not Found");
         }
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderHasProductRepository.save(new Order_has_Product( new OrderProductPrimaryKey(new Product(productId),new Orders(orderId)),quantity)));
+        if(product.getQuantity()<quantity)
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Quantity of the Product Insufficient");
+        }
+        else
+        {
+
+                productRepository.save(new Product(product.getProductId(),product.getCost(),product.getProductDescription(),product.getSellingPrice(),product.getProductCode(),product.getProductName(),product.getAvailability(),product.getQuantity()-quantity));
+
+        }
+
+        Double price=product.getSellingPrice()*quantity;
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderHasProductRepository.save(new Order_has_Product( new OrderProductPrimaryKey(new Product(productId),new Orders(orderId)),quantity,price)));
 
     }
 
+    @Transactional
+    @RequestMapping(value="/api/order/{Idd}",method = RequestMethod.PATCH)
+    public ResponseEntity<?>submitOrder(@PathVariable Integer Idd,@RequestBody SubmitOrder submitOrder)
+    {
+        String address=submitOrder.getAddress();
+        String user_name=submitOrder.getUser_name();
+        if(user_name==null || address==null)
+        {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User_Name and Address can't be null");
+
+        }
+        User user=userRepository.findByName(user_name);
+        if(user==null)
+        {
+
+            user=userRepository.save(new User(user_name,address));
+        }
+        Orders order=ordersRepository.findOne(Idd);
+        if(order==null)
+        {
+            throw new IllegalArgumentException("Order doesn't exist");
+        //    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Order doesn't exist");
+
+        }
+
+        Double amount=orderHasProductRepository.findSum(order.getOrderId());
+
+      //  int productId=orderHasProductRepository.findProductId(order.getOrderId());
+        order=ordersRepository.save(new Orders(order.getOrderId(),"CheckOut",user,new Timestamp(new Date().getTime())));
+
+
+        paymentRepository.save(new Payment("Cash on delivery",amount,order.getOrderId()));
+
+        return ResponseEntity.status(HttpStatus.OK).body(order);
+    }
 
 
 

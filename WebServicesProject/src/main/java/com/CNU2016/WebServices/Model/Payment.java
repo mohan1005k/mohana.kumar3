@@ -20,6 +20,12 @@ public class Payment {
         return mode;
     }
 
+    public Payment(String mode,Double amount,int order_OrderId)
+    {
+        this.mode=mode;
+        this.amount=amount;
+        this.order_OrderId=order_OrderId;
+    }
     public void setMode(String mode) {
         this.mode = mode;
     }
@@ -50,6 +56,8 @@ public class Payment {
 
     private String mode;
     private Double amount;
+
+
     private int order_OrderId;
 
 }

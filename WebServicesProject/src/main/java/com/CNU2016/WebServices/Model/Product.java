@@ -30,6 +30,9 @@ public class Product {
     private String productName;
     private Boolean availability;
 
+
+    private int quantity;
+
     @JsonProperty("code")
     private String productCode;
 
@@ -47,6 +50,14 @@ public class Product {
         this.orders = orders;
     }
 */
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
 
     public String getProductCode() {
@@ -129,13 +140,7 @@ public class Product {
         this.availability = Boolean.TRUE;
     }
 
-    /*public Product(int productId,String productCode,String productDescription,)
-    {
 
-        this.productCode=productCode;
-        this.productDescription=productDescription;
-        this.productId=productId;
-    }*/
 
     public Product(String productCode,String productDescription)
     {
@@ -163,6 +168,22 @@ public class Product {
 
 
     }
+
+    public Product(int productId,Double cost,String productDescription,Double sellingPrice,String productCode,String productName,Boolean availability,int quantity)
+    {
+        this.productId=productId;
+        this.cost=cost;
+        this.productDescription=productDescription;
+        this.sellingPrice=sellingPrice;
+        this.productName=productName;
+        this.availability=availability;
+        this.productCode=productCode;
+        this.quantity=quantity;
+        //this.availability=
+
+
+    }
+
 
 
 

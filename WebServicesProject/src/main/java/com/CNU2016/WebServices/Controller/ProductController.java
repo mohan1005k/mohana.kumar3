@@ -1,52 +1,61 @@
 package com.CNU2016.WebServices.Controller;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.*;
 import com.CNU2016.WebServices.Model.Product;
 
-import com.CNU2016.WebServices.Model.Product1;
+import com.CNU2016.WebServices.Pojo.ProductHelper;
 import com.CNU2016.WebServices.Pojo.NotFound;
 import com.CNU2016.WebServices.Repositories.ProductRepository;
 
+
+import com.google.gson.Gson;
+import com.amazonaws.util.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClient;
+import com.amazonaws.services.sqs.model.CreateQueueRequest;
+import com.amazonaws.services.sqs.model.DeleteMessageRequest;
+import com.amazonaws.services.sqs.model.DeleteQueueRequest;
+import com.amazonaws.services.sqs.model.Message;
+import com.amazonaws.services.sqs.model.ReceiveMessageRequest;
+import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 /**
  * Created by mohanakumar on 07/07/16.
  */
 @RestController
-public class WebServicesController {
+public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
-    @RequestMapping("/products1")
-    public List<Product> products()
-    {
-        //return "hi";
-        //List<Product> persons =
-        List<Product>resultRecords=new ArrayList<>();
-        return resultRecords;
-              //  resultRecords=productRepository.findAll();
-    }
 
 
 
     @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.GET)
-    public ResponseEntity<?> products(@PathVariable Integer Idd)
+    public ResponseEntity<?> getProduct(@PathVariable Integer Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
+
+
         if(product!=null) {
             return ResponseEntity.status(HttpStatus.OK).body(product);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFound("Not Found"));
     }
 
+
     @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.DELETE)
-    public ResponseEntity<?> products(@PathVariable int Idd)
+    public ResponseEntity<?> deleteProduct(@PathVariable int Idd)
     {
 
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
@@ -61,43 +70,17 @@ public class WebServicesController {
 
     }
 
-    @RequestMapping(value="/api/{Idd}",method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@PathVariable int Idd)
-    {
-
-        Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
-        if(product!=null) {
-
-            productRepository.delete(Idd);
-            return ResponseEntity.status(HttpStatus.OK).body(product);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No record found to delete");
-
-    }
-
-    @RequestMapping(value="/api/products3")
-    public List<Product>products2()
-    {
-        List<Product>resultRecords=new ArrayList<>();
-        Iterable<Product> it=productRepository.findAll();
-        Iterator iterator=it.iterator();
-        while(iterator.hasNext())
-        {
-            resultRecords.add((Product)iterator.next());
 
 
-        }
-        return  resultRecords;
-    }
 
     @RequestMapping(value = "/api/products", method = RequestMethod.POST)
-    public ResponseEntity<?> products3(@RequestBody Product1 product1)
+    public ResponseEntity<?> createProduct(@RequestBody ProductHelper productHelper)
     {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(new Product(product1.getCode(),product1.getDescription())));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(new Product(productHelper.getCode(), productHelper.getDescription())));
     }
 
     @RequestMapping(value = "/api/products/{Idd}", method = RequestMethod.PUT)
-    public ResponseEntity<?> products4(@RequestBody Product1 product1,@PathVariable int Idd)
+    public ResponseEntity<?> updateProduct1(@RequestBody ProductHelper productHelper, @PathVariable int Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
         if(product==null)
@@ -105,16 +88,16 @@ public class WebServicesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFound("Not Found"));
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(new Product(Idd,product1.getCode(),product1.getDescription())));
+        return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(new Product(Idd, productHelper.getCode(), productHelper.getDescription())));
     }
 
     @RequestMapping(value = "/api/products/{Idd}", method = RequestMethod.PATCH)
-    public ResponseEntity<?> products5(@RequestBody Product1 product1,@PathVariable int Idd)
+    public ResponseEntity<?> updateProduct(@RequestBody ProductHelper productHelper, @PathVariable int Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
         if(product!=null) {
-            String code=product1.getCode();
-            String description=product1.getDescription();
+            String code= productHelper.getCode();
+            String description= productHelper.getDescription();
             if(code==null)
                 code=product.getProductCode();
             if(description==null)
@@ -126,13 +109,12 @@ public class WebServicesController {
     }
 
     @RequestMapping(value = "/api/products", method = RequestMethod.GET)
-    public List<Product1> getProducts()
+    public List<ProductHelper> getProducts()
     {
-        List<Product1> returnProduct = new ArrayList<>();
-        //System.out.println(productRepository.findAll().toString());
+        List<ProductHelper> returnProduct = new ArrayList<>();
 
         for(Product product : productRepository.findByAvailability(Boolean.TRUE)) {
-            returnProduct.add(new Product1(product.getProductId(),product.getProductCode(),product.getProductDescription()));
+            returnProduct.add(new ProductHelper(product.getProductId(),product.getProductCode(),product.getProductDescription()));
         }
         return returnProduct;
     }

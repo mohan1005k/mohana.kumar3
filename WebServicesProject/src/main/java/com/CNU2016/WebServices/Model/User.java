@@ -71,6 +71,11 @@ public class User {
         this.name=name;
     }
 
+    public User(String name,String addressLine1)
+    {
+        this.name=name;
+        this.addressLine1=addressLine1;
+    }
 
     public User()
     {

@@ -1,9 +1,9 @@
 package com.CNU2016.WebServices.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * Created by mohanakumar on 09/07/16.
@@ -14,33 +14,68 @@ import javax.persistence.Table;
 
 public class Feedback {
 
-    @Column(name="ProductId")
+
+    @Column(name="FeedbackId")
     @Id
+    private int FeedbackId;
     private String description;
     private String email;
     private String type;
-    private String timeStamp;
+    private Timestamp feedbackDate;
+
+
     private String status;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UserId")
+    private User user_for_feedback;
+
+    public User getUser_for_feedback() {
+        return user_for_feedback;
+    }
+
+    public void setUser_for_feedback(User user_for_feedback) {
+        this.user_for_feedback = user_for_feedback;
+    }
+
+
 
     public Feedback()
     {
 
     }
-    public int getUserId() {
+
+    public Feedback(String description,User user_for_feedback,Timestamp feedbackDate)
+    {
+        this.description=description;
+        this.user_for_feedback=user_for_feedback;
+        this.feedbackDate=feedbackDate;
+    }
+
+    public int getFeedbackId() {
+        return FeedbackId;
+    }
+
+    public void setFeedbackId(int feedbackId) {
+        FeedbackId = feedbackId;
+    }
+    public Timestamp getFeedbackDate() {
+        return feedbackDate;
+    }
+
+    public void setFeedbackDate(Timestamp feedbackDate) {
+        this.feedbackDate = feedbackDate;
+    }
+
+  /*  public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
     }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
+*/
 
     public String getStatus() {
         return status;
@@ -50,13 +85,6 @@ public class Feedback {
         this.status = status;
     }
 
-    public String getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(String timeStamp) {
-        this.timeStamp = timeStamp;
-    }
 
     public String getType() {
         return type;
@@ -82,6 +110,5 @@ public class Feedback {
         this.email = email;
     }
 
-    private String updateTime;
-    private int userId;
+
 }

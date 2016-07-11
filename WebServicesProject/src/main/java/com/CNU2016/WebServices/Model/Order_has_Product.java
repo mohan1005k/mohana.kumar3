@@ -16,24 +16,45 @@ public class Order_has_Product {
     @EmbeddedId
     OrderProductPrimaryKey orderProductPrimaryKey;
 
-   /* @Column(name="OrderId")
-    private int orderId;
 
-    @Column(name="ProductId")
-    private int productId;
-*/
-    @Column(name="Quantity")
-    private int quantity;
+    /* @Column(name="OrderId")
+        private int orderId;
+
+        @Column(name="ProductId")
+        private int productId;
+    */
+   @Column(name="QuantityOrdered")
+    private int quantityOrdered;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    @Column(name="Price")
+    private Double price;
 
     public Order_has_Product()
     {
 
     }
 
-    public Order_has_Product(OrderProductPrimaryKey orderProductPrimaryKey,int quantity)
+    public int getQuantityOrdered() {
+        return quantityOrdered;
+    }
+
+    public void setQuantityOrdered(int quantityOrdered) {
+        this.quantityOrdered = quantityOrdered;
+    }
+
+    public Order_has_Product(OrderProductPrimaryKey orderProductPrimaryKey,int quantity,Double price)
     {
         this.orderProductPrimaryKey=orderProductPrimaryKey;
-        this.quantity=quantity;
+        this.quantityOrdered=quantity;
+        this.price=price;
 
     }
   /*  public Order_has_Product(int order_OrderId,int product_productId)
@@ -51,31 +72,6 @@ public class Order_has_Product {
     }
 
 
-/*
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-*/
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-/*
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-*/
 
 
 }

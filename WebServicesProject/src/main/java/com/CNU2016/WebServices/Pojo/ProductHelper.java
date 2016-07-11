@@ -1,4 +1,4 @@
-package com.CNU2016.WebServices.Model;
+package com.CNU2016.WebServices.Pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,15 +9,15 @@ import javax.persistence.Table;
  * Created by mohanakumar on 08/07/16.
  */
 
-public class Product1 {
+public class ProductHelper {
 
 
-    public Product1()
+    public ProductHelper()
     {
 
     }
 
-    public Product1(Integer productId,String productCode,String productDescription)
+    public ProductHelper(Integer productId, String productCode, String productDescription)
     {
         this.id=productId;
         this.code=productCode;

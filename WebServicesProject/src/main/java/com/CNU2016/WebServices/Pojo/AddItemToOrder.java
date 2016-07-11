@@ -6,18 +6,18 @@ package com.CNU2016.WebServices.Pojo;
 public class AddItemToOrder {
 
 
-    private int orderId;
+  //  private int orderId;
     private int productId;
     private int quantity;
 
-    public int getOrderId() {
+   /* public int getOrderId() {
         return orderId;
     }
 
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
-
+*/
     public int getProductId() {
         return productId;
     }
