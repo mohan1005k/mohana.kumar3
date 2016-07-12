@@ -36,6 +36,18 @@ public class Orders {
     private Timestamp orderDate;
 
 
+    private Boolean availability;
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
+
+
+
 /*
     private List<Product>productsForOrders;
 

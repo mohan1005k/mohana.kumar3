@@ -44,11 +44,25 @@ public class OrdersController {
     @RequestMapping(value="/orders/{Idd}",method = RequestMethod.GET)
     public ResponseEntity<?> getOrder(@PathVariable Integer Idd)
     {
-        Orders order=ordersRepository.findOne(Idd);
+        Orders order=ordersRepository.findByOrderIdAndAvailability(Idd,true);
         if(order!=null) {
             return ResponseEntity.status(HttpStatus.OK).body(order);
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(order);
+    }
+
+    @RequestMapping(value="/orders/{Idd}",method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteOrder(@PathVariable Integer Idd)
+    {
+        Orders orders=ordersRepository.findByOrderIdAndAvailability(Idd,Boolean.TRUE);
+        if(orders!=null) {
+
+            orders.setAvailability(false);
+            ordersRepository.save(orders);
+            //  productRepository.delete(Idd);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFound("Not Found"));
     }
 
     @RequestMapping(value="/ordersuser/{Idd}",method = RequestMethod.GET)
@@ -88,7 +102,7 @@ public class OrdersController {
     }
 
     @Transactional
-    @RequestMapping(value="/api/orders/{Idd}/orderlineitem",method=RequestMethod.POST)
+    @RequestMapping(value="/api/orders/{Idd}/orderLineItem",method=RequestMethod.POST)
     public ResponseEntity<?>orderLineItem(@PathVariable Integer Idd,@RequestBody AddItemToOrder addItemToOrder)
     {
 

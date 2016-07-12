@@ -12,4 +12,6 @@ import java.util.*;
  * Created by mohanakumar on 08/07/16.
  */
 public interface OrdersRepository  extends CrudRepository<Orders,Integer>{
+
+    Orders findByOrderIdAndAvailability(int a,Boolean b);
 }
