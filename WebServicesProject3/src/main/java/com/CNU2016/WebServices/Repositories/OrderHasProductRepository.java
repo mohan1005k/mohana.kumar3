@@ -1,6 +1,8 @@
 package com.CNU2016.WebServices.Repositories;
 
 import com.CNU2016.WebServices.Model.*;
+import com.CNU2016.WebServices.Pojo.Order_has_Product_Quantity;
+import com.CNU2016.WebServices.Pojo.ProductQuantity;
 import com.CNU2016.WebServices.PrimaryKey.OrderProductPrimaryKey;
 
 import org.springframework.data.repository.CrudRepository;
@@ -21,12 +23,18 @@ public interface OrderHasProductRepository extends CrudRepository<Order_has_Prod
 
     @Query("Select sum(price) from Order_has_Product where orderId=:id")
     Double findSum(@Param("id") int id);
+    /*
+    @Query("Select p.productId,p.quantity from Product AS p where p.productId IN(Select o.productId from Order_has_Product AS o where orderId=:id)")
+    Iterable<ProductQuantity>findProduct(@Param("id") int id);
 
-  /*  @Query("Select * from Product where Product.productId IN(Select productId from Order_has_Product where orderId=:id")
-    Iterable<Product>findProduct(@Param("id") int id);
+    @Query("Select p.productId,p.quantity from Order_has_Product op inner join op.productKey p on p.productId=op.productId where op.orderId=:id")
+    Iterable<ProductQuantity>findProduct(@Param("id") int id);
+*/
+    /*
+    @Query(value="Select productId,quantityOrdered from Order_has_Product where orderId=:id")
+    Iterable<Order_has_Product_Quantity>findOrderId(int id);
+*/
 
+    Iterable<Order_has_Product>findByOrderProductPrimaryKeyOrdersKeyOrderId(int id);
 
-    Iterable<Order_has_Product>findByOrderId(int id);
-  *//*  @Query(value="Select productId from Product")
-    int findById();*/
 }
