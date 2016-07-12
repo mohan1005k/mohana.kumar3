@@ -41,7 +41,7 @@ public class OrdersController {
 
 
 
-    @RequestMapping(value="/orders/{Idd}",method = RequestMethod.GET)
+    @RequestMapping(value="/api/orders/{Idd}",method = RequestMethod.GET)
     public ResponseEntity<?> getOrder(@PathVariable Integer Idd)
     {
         Orders order=ordersRepository.findByOrderIdAndAvailability(Idd,true);
@@ -51,7 +51,7 @@ public class OrdersController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(order);
     }
 
-    @RequestMapping(value="/orders/{Idd}",method = RequestMethod.DELETE)
+    @RequestMapping(value="/api/orders/{Idd}",method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteOrder(@PathVariable Integer Idd)
     {
         Orders orders=ordersRepository.findByOrderIdAndAvailability(Idd,Boolean.TRUE);
