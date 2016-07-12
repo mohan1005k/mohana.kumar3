@@ -24,7 +24,7 @@ public class ProductController {
 
 
     @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.GET)
-    public ResponseEntity<?> getProduct(@PathVariable Integer Idd)
+    public ResponseEntity<?> getProduct2(@PathVariable Integer Idd)
     {
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);
         if(product!=null) {
@@ -34,7 +34,7 @@ public class ProductController {
     }
 
     @RequestMapping(value="/api/products/{Idd}",method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteProduct(@PathVariable int Idd)
+    public ResponseEntity<?> deleteProduct2(@PathVariable int Idd)
     {
 
         Product product=productRepository.findByProductIdAndAvailability(Idd,Boolean.TRUE);

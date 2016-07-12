@@ -42,7 +42,7 @@ public class OrdersController {
 
 
     @RequestMapping(value="/api/orders/{Idd}",method = RequestMethod.GET)
-    public ResponseEntity<?> getOrder(@PathVariable Integer Idd)
+    public ResponseEntity<?> getOrder2(@PathVariable Integer Idd)
     {
         Orders order=ordersRepository.findByOrderIdAndAvailability(Idd,true);
         if(order!=null) {

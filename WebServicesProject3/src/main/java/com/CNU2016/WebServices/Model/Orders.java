@@ -105,6 +105,7 @@ public class Orders {
         this.status=status;
     //    this.fkUserId=user_UserId;
         this.dateofOrder=dateofOrder;
+        this.availability=true;
         //     this.quantityOrdered=quantityOrdered;
     }
 
@@ -119,13 +120,16 @@ public class Orders {
         this.user_for_order=user;
       //  this.fkUserId=user_UserId;
         this.dateofOrder="2015-06-01";
+        this.availability=true;
     }
+
 
     public Orders(String status,User user,Timestamp timestamp)
     {
         this.status=status;
         this.user_for_order=user;
         this.orderDate=timestamp;
+        this.availability=true;
     }
     public Orders(int orderId,String status,User user,Timestamp timestamp)
     {
@@ -133,6 +137,7 @@ public class Orders {
         this.orderId=orderId;
         this.user_for_order=user;
         this.status=status;
+        this.availability=true;
     }
     /*
     public Orders(int orderId,String status,int user_UserId,String dateofOrder)
