@@ -1,6 +1,7 @@
 package com.CNU2016.WebServices.Model;
 
 import com.CNU2016.WebServices.PrimaryKey.OrderProductPrimaryKey;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.persistence.criteria.Order;
@@ -23,7 +24,8 @@ public class Order_has_Product {
         @Column(name="ProductId")
         private int productId;
     */
-   @Column(name="QuantityOrdered")
+    @JsonProperty("qty")
+    @Column(name="QuantityOrdered")
     private int quantityOrdered;
 
     public Double getPrice() {
