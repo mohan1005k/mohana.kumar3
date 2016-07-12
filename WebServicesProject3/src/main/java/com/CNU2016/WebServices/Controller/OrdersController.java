@@ -76,7 +76,7 @@ public class OrdersController {
     }
 
 
-    @RequestMapping(value = "/api/order", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/orders", method = RequestMethod.POST)
     public ResponseEntity<?> makeOrder(@RequestBody OrderHelper orderHelper)
     {
 
@@ -88,7 +88,7 @@ public class OrdersController {
     }
 
     @Transactional
-    @RequestMapping(value="/api/{Idd}/orderlineitem",method=RequestMethod.POST)
+    @RequestMapping(value="/api/orders/{Idd}/orderlineitem",method=RequestMethod.POST)
     public ResponseEntity<?>orderLineItem(@PathVariable Integer Idd,@RequestBody AddItemToOrder addItemToOrder)
     {
 
@@ -125,7 +125,7 @@ public class OrdersController {
     }
 
     @Transactional
-    @RequestMapping(value="/api/order/{Idd}",method = RequestMethod.PATCH)
+    @RequestMapping(value="/api/orders/{Idd}",method = RequestMethod.PATCH)
     public ResponseEntity<?>submitOrder(@PathVariable Integer Idd,@RequestBody SubmitOrder submitOrder)
     {
         String address=submitOrder.getAddress();

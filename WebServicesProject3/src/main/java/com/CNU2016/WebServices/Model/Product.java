@@ -30,7 +30,7 @@ public class Product {
     private String productName;
     private Boolean availability;
 
-
+    @JsonProperty("qty")
     private int quantity;
 
     @JsonProperty("code")

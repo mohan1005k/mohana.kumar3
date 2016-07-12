@@ -9,6 +9,7 @@ public class AddItemToOrder {
 
 
   //  private int orderId;
+    @JsonProperty("product_id")
     private int productId;
 
     @JsonProperty("qty")
