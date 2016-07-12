@@ -174,7 +174,7 @@ public class OrdersController {
             Product product=productRepository.findOne(product_id);
             if(product.getQuantity() < order_has_product.getQuantityOrdered())
             {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Product Quantity Insufficient");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Product Quantity Insufficient");
             }
         }
 
