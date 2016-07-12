@@ -50,6 +50,11 @@ public class ProductController {
     }
 
 
+    @RequestMapping(value = "/api/health", method = RequestMethod.GET)
+    public ResponseEntity<?> healthCase()
+    {
+        return ResponseEntity.status(HttpStatus.OK).body("Health api");
+    }
 
 
     @RequestMapping(value = "/api/products", method = RequestMethod.POST)
