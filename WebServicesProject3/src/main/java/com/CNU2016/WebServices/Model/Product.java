@@ -142,7 +142,7 @@ public class Product {
 
 
 
-    public Product(String productCode,String productDescription)
+    public Product(String productCode,String productDescription,int quantity)
     {
 
         this.productName=null;
@@ -152,6 +152,7 @@ public class Product {
         this.productCode=productCode;
         this.productDescription=productDescription;
         this.availability=Boolean.TRUE;
+        this.quantity=quantity;
        // this.productId=productId;
     }
 

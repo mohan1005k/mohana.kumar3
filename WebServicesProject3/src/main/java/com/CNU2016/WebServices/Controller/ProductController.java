@@ -60,7 +60,7 @@ public class ProductController {
     @RequestMapping(value = "/api/products", method = RequestMethod.POST)
     public ResponseEntity<?> createProduct(@RequestBody ProductHelper productHelper)
     {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(new Product(productHelper.getCode(), productHelper.getDescription())));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(new Product(productHelper.getCode(), productHelper.getDescription(),productHelper.getQuantity())));
     }
 
     @RequestMapping(value = "/api/products/{Idd}", method = RequestMethod.PUT)

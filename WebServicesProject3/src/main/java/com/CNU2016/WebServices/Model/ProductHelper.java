@@ -1,5 +1,7 @@
 package com.CNU2016.WebServices.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,9 +14,21 @@ import javax.persistence.Table;
 public class ProductHelper {
 
 
+
+
+    @JsonProperty("qty")
+    private int quantity;
     public ProductHelper()
     {
 
+    }
+
+    public ProductHelper(Integer productId, String productCode, String productDescription,int quantity)
+    {
+        this.id=productId;
+        this.code=productCode;
+        this.description=productDescription;
+        this.quantity=quantity;
     }
 
     public ProductHelper(Integer productId, String productCode, String productDescription)
@@ -22,6 +36,7 @@ public class ProductHelper {
         this.id=productId;
         this.code=productCode;
         this.description=productDescription;
+
     }
 
 
@@ -51,6 +66,13 @@ public class ProductHelper {
         this.id = id;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
     private String code;
     private String description;
 
