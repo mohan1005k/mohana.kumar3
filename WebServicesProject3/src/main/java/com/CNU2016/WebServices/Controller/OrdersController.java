@@ -121,16 +121,16 @@ public class OrdersController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order Not Found");
         }
 
-        if(product.getQuantity()<quantity)
+      /*  if(product.getQuantity()<quantity)
         {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Quantity of the Product Insufficient");
         }
         else
-        {
+        {*/
 
                 productRepository.save(new Product(product.getProductId(),product.getCost(),product.getProductDescription(),product.getSellingPrice(),product.getProductCode(),product.getProductName(),product.getAvailability(),product.getQuantity()-quantity));
 
-        }
+    //    }
 
         Double price=product.getSellingPrice()*quantity;
 
