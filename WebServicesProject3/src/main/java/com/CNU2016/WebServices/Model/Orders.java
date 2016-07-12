@@ -1,6 +1,7 @@
 package com.CNU2016.WebServices.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 
@@ -14,6 +15,7 @@ import java.util.*;
 @Table(name="Orders")
 public class Orders {
 
+    @JsonProperty("id")
     @Column(name="OrderId")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
