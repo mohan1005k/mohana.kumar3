@@ -7,6 +7,8 @@ from random import randint
 productid_list=[]
 orderid_list=[]
 
+#Fetching ProductIds from existing Products-Required for foreign key relation in OrderLineItem table
+
 with open('Product_view.csv', 'rb') as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=',')
 	index=0;
@@ -15,6 +17,8 @@ with open('Product_view.csv', 'rb') as csvfile:
 		if(index is 1):
 			continue;
 		productid_list.append(row[0]);
+
+#Fetching OrderIds from existing Orders-Required for foreign key relation in OrderLineItem table
 
 with open('order_populate.csv', 'rb') as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=',')
@@ -25,6 +29,7 @@ with open('order_populate.csv', 'rb') as csvfile:
 			continue;
 		orderid_list.append(row[0]);
 
+#Populating OrderLineTable with random values
 
 with open('order_has_product_populate.csv', 'wb') as csvfile:
 	spamwriter = csv.writer(csvfile, delimiter=',')

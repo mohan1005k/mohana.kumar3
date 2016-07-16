@@ -18,11 +18,14 @@ status_list.append("PROGRESS")
 status_list.append("SHIPPED")
 status_list.append("COMPLETED")
 
+#Generating random dates
 
 for iter in range(1,20):
 	startDate='2016-07-01'
 	endDate='2016-07-15'
 	date_list.append(radar.random_datetime(start=startDate, stop=endDate))
+
+#Fetching UserIds from existing Users table-Required for foreign key relation in Orders table
 
 with open('User_view.csv', 'rb') as csvfile:
 	spamreader = csv.reader(csvfile, delimiter=',')
@@ -32,6 +35,8 @@ with open('User_view.csv', 'rb') as csvfile:
 		if(index is 1):
 			continue;
 		user_list.append(row[0]);
+
+#Populating Orders table with random values
 
 with open('order_populate.csv', 'wb') as csvfile:
 	spamwriter = csv.writer(csvfile, delimiter=',')
