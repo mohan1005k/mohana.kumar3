@@ -4,7 +4,6 @@ import com.CNU2016.SmartHome.Appliance;
 import com.CNU2016.SmartHome.ApplianceDetails;
 import com.CNU2016.SmartHome.AvailableAppliances;
 import com.CNU2016.SmartHome.State;
-//import org.eclipse.che.examples.*;
 
 import org.junit.*;
 
@@ -20,7 +19,6 @@ public class ApplianceTest {
             ApplianceDetails ob = new ApplianceDetails("FAN");
             assertFalse(true);
 
-            //assertEquals("fan",ob.getName());
         } catch (IllegalArgumentException e) {
             assertTrue(true);
         }
@@ -34,7 +32,6 @@ public class ApplianceTest {
             ApplianceDetails ob = new ApplianceDetails("");
             assertFalse(true);
 
-            //assertEquals("fan",ob.getName());
         } catch (NullPointerException e) {
             assertTrue(true);
         }
