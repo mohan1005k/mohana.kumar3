@@ -1,0 +1,44 @@
+
+<div class="jumbotron">
+    <h2>Product Catelogue</h2>
+
+</div>
+<div style="width: 100%; overflow: hidden;">
+
+
+    <div  style="width: 10px; float: left;">
+
+       
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#">All Categories</a></li>
+           <ul class="nav nav-tabs" ng-repeat="d in CategoriesDetails.data">
+            <li><a ng-click="updateProduct(d.description)">{{d.description}}</a></li>
+            </ul>
+        </ul>
+        
+    </div>
+
+
+    <div  style="margin-left: 220px;">
+
+      
+
+        <div class="row">
+            <div class="col-sm-6 col-md-3" ng-repeat="d in Details.data | filter : categoryDesc">
+                <div class="thumbnail">
+                    <img src="http://charliemenswear.com/wp-content/uploads/2016/03/pepe-teal-plain-men-shirt.jpg"
+                         height="100" width="100">
+                    <div class="caption">
+                        <h6 align="center">{{d.code}}</h6>
+                        <h6 align="center">{{d.price}} INR</h6>
+                        <p><a href="#!/view2/{{d.id}}" class="btn btn-primary" role="button">View Details</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
