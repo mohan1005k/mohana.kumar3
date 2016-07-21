@@ -1,0 +1,15 @@
+.column-labels
+label {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.product-image, .product-details, .product-removal {
+    text-indent: -9999px;
+}
+
+.shopping-cart {
+    margin: 0;
+    padding-top: 20px;
+
+}

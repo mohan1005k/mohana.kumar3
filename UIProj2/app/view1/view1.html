@@ -1,0 +1,103 @@
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+        }
+
+        footer {
+            margin: 50px 0;
+        }
+    </style>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+</head>
+<body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular-route.min.js"></script>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Home</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#!/view5/">Contact Us</a>
+                </li>
+                <li>
+                    <a href="#!/view3/">Cart <span class="label label-default" ng-bind="total_items"></span></a>
+                </li>
+
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<div class="container">
+
+    <div class="jumbotron">
+        <h2>Product Catelogue</h2>
+
+    </div>
+    <div style="width: 95%; overflow: hidden;">
+
+
+        <div style="width: 10px; float: left;">
+
+            <!--  <button ng-click="GetAllData()">Get All Data</button> -->
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">Categories</a></li>
+                <ul class="nav nav-tabs" ng-repeat="d in CategoriesDetails.data">
+                    <li><a ng-click="updateProduct(d.description)">{{d.description}}</a></li>
+                </ul>
+            </ul>
+
+        </div>
+
+
+        <div style="margin-left: 220px;">
+
+
+            <div class="row">
+                <div class="col-sm-6 col-md-4" ng-repeat="d in Details.data | filter : categoryDesc">
+                    <div id="imagesRandom" class="thumbnail" height="300" width="300">
+
+                        <script type='text/javascript'
+                                src='http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+
+                        <div class="caption">
+                            <img align="center" src="images/image{{(d.id%2)}}.jpg" + height="250px" width="250px">
+                            <h6 align="center" style="height:10px">{{d.name}}</h6>
+                            <h6 align="center">{{d.price}} INR</h6>
+                            <p><a href="#!/view2/{{d.id}}" class="btn btn-primary" role="button">View Details</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
