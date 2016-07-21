@@ -1,0 +1,5 @@
+Ecommerce/config.pyc
+Ecommerce/*.pyc
+app/*.pyc
+.idea
+*.pyc
