@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.1.0/bootstrap.min.js"></script>
+    <style>
+        .vertical-center {
+            min-height: 100%; /* Fallback for browsers do NOT support vh unit */
+            min-height: 100vh; /* These two lines are counted as one :-)       */
+
+            display: flex;
+            align-items: center;
+        }
+
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Home</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<br>
+<br>
+<!-- vertical-center -->
+
+<div class="container" style="width:95%;">
+<div class="jumbotron" > <!--
+                      ^--- Added class  -->
+    <div class="container">
+        <h1>Order received Successfully ! ! </h1>
+        <h2>You'll be receiving the following items shortly ! ! </h2>
+    </div>
+</div>
+    <div class="container" style="width:90%">
+<div class="row">
+
+
+    <div class="row">
+
+        <div class="col-md-3"><h4><span class="label label-default">Image</span></h4></div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-3"><h4><span class="label label-default">Quantity</span></h4></div>
+                <div class="col-md-3"><h4><span class="label label-default">Product Name</span></h4></div>
+                <div class="col-md-3"><h4><span class="label label-default">Price</span></h4></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row" ng-repeat="d in OrderLineItems.data">
+
+        <div class="row">
+            <div class="col-md-3">
+                <a href="#!/view2/{{d.product_id}}">
+                    <img src="images/image{{(d.product_id%2)}}.jpg"
+                         height="70" width="70">
+                </a>
+
+            </div>
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!--  <label>Quantity:  </label><input type="number" ng-model="quantity" min="1" max="1000"><br> -->
+                        <input type="text" ng-model="d.quantityordered"
+                               ng-change="quantityChange(d.id,d.quantityordered,d)" id="ng-change-example1">
+                        <!--<button ng-click="quantityChange(d.id)"></button> -->
+                        <!-- <h4>{{d.quantityordered}}</h4> -->
+                    </div>
+                    <div class="col-md-3">
+                        <h4>{{d.productname}}</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>{{d.price}} INR</h4>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <hr>
+
+    </div>
+
+
+</div>
+    </div>
+</div>
+
+</body>
+</html>
