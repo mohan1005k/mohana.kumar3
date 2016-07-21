@@ -22,7 +22,7 @@ class HealthViewSet(viewsets.ModelViewSet):
 
 
 
-class OrderHasProductViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class OrderHasProductViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     filter_class=OrderHasProductFilter
     serializer_class = OrderHasProductSerializer
     queryset=OrderHasProduct.objects.all()
@@ -54,7 +54,7 @@ class OrderHasProductViewSet(mixins.UpdateModelMixin, mixins.ListModelMixin,mixi
         return Response(serializer.data)
 
 
-class CategoriesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class CategoriesViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = CategoriesSerializer
     queryset = Categories.objects.all()
 
@@ -65,7 +65,7 @@ class CategoriesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return Response(serializer.data)
 
 
-class ProductViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+class ProductViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
 
@@ -85,7 +85,7 @@ class ProductViewSet(mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.Retri
 
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = UserSerializer
 
     def get_queryset(self):
@@ -100,7 +100,7 @@ class UserViewSet(viewsets.ModelViewSet):
         # content={'data':serializer.data}
         return Response(serializer.data)
 
-class OrdersViewSet(viewsets.ModelViewSet):
+class OrdersViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = OrdersSerializer
 
     def get_queryset(self):
@@ -112,7 +112,7 @@ class OrdersViewSet(viewsets.ModelViewSet):
         Orders.objects.filter(id=pk).update(availability=False)
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
-class FeedbackViewSet(viewsets.ModelViewSet):
+class FeedbackViewSet(mixins.CreateModelMixin,mixins.UpdateModelMixin, mixins.ListModelMixin,mixins.DestroyModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = FeedbackSerializer
     queryset = Feedback.objects.all()
 
