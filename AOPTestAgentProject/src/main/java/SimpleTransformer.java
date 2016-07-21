@@ -15,9 +15,6 @@ public class SimpleTransformer implements ClassFileTransformer {
 
     public byte[] transform(ClassLoader loader, String className, Class redefiningClass, ProtectionDomain domain, byte[] bytes) throws IllegalClassFormatException
     {
-  //      System.out.println(className);
-
-
         if (className.contains("java") || className.contains("sun"))
         {
             return null;
@@ -28,23 +25,18 @@ public class SimpleTransformer implements ClassFileTransformer {
         }
         catch (Exception e)
         {
-            //e.printStackTrace();
         }
         return null;
     }
 
     private byte[] transformClass(Class classToTransform, byte[] b) {
-        // System.out.println("in transform classs");
         ClassPool pool = ClassPool.getDefault();
         CtClass cl = null;
         try {
             cl = pool.makeClass(new java.io.ByteArrayInputStream(b));
-          //  if(cl.getName().startsWith("com.CNU2016")) {
-                CtBehavior[] methods =cl.getDeclaredBehaviors();// cl.getDeclaredBehaviors();
+                CtBehavior[] methods =cl.getDeclaredBehaviors();
                 for (int i = 0; i < methods.length; i++) {
-                    //  System.out.println(methods[i].getName());
                     if (methods[i].isEmpty() == false)
-                    //   if(methods[i].getName().compareTo("getProduct")==0)
                     {
                         System.out.println(methods[i].getLongName());
                         String methodName = methods[i].getLongName();
@@ -54,13 +46,10 @@ public class SimpleTransformer implements ClassFileTransformer {
                         methods[i].insertAfter("System.out.println(\"EXITING FUNCTION :" + methodName + "\");");
                         methods[i].insertAfter("System.out.println(\"\");");
 
-                        // changeMethod(methods[i]);
                     }
                 }
-         //   }
             b = cl.toBytecode();
         } catch (Exception e) {
-           // e.printStackTrace();
         } finally {
             if (cl != null) {
                 cl.detach();
