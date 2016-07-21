@@ -128,11 +128,15 @@ class OrdersSerializer(serializers.ModelSerializer):
     #post request
     def create(self,validated_data):
         if(validated_data.get('fkuserid') is not None):
-            user,created=User.objects.get_or_create(
-                username=validated_data['fkuserid']['username'],
-                address=validated_data['fkuserid']['address']
-            )
-
+            if(validated_data['fkuserid'].get('address') is not None):
+                user,created=User.objects.get_or_create(
+                    username=validated_data['fkuserid']['username'],
+                    address=validated_data['fkuserid']['address']
+                )
+            else:
+                user,created=User.objects.get_or_create(
+                    username=validated_data['fkuserid']['username'],
+                )
             validated_data['fkuserid']=user
         validated_data['status']="CREATED"
         return Orders.objects.create(**validated_data)
