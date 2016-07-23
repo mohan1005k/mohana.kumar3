@@ -35,7 +35,7 @@ public Boolean analyzeSuperClasses(ClassDescriptor invokedObject)
 {
     try {
 
-        if(threadDescriptor.equals(invokedObject.getXClass().getSuperclassDescriptor()))
+        if(threadDescriptor.equals(invokedObject))
         {
             return Boolean.TRUE;
         }
