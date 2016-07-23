@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessageCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="messagecollection.xsd">
+
+    <Plugin>
+        <ShortDescription>FindBugs IT Crowd domain annotation checks Plugin</ShortDescription>
+        <Details>IT Crowd domain annotation checks</Details>
+    </Plugin>
+
+    <Detector class="com.CNU2016.BugDetector.CustomDetector">
+        <Details>
+            ThreadBugs
+        </Details>
+    </Detector>
+
+
+
+    <BugPattern type="ThreadError">
+        <ShortDescription>@ThreadError</ShortDescription>
+        <LongDescription>Did you
+
+            intend to use Thread.start() to create a new execution thread?</LongDescription>
+        <Details>
+            <![CDATA[
+<p>Thread Error</p>
+]]>
+        </Details>
+    </BugPattern>
+
+    <BugPattern type="RunnableError">
+        <ShortDescription>@RunnableError</ShortDescription>
+        <LongDescription>Did you
+
+            intend to put run() method in new thread?</LongDescription>
+        <Details>
+            <![CDATA[
+<p>Runnable Error</p>
+]]>
+        </Details>
+    </BugPattern>
+
+
+    <BugCode abbrev="NNI">@Thread Inconsistency</BugCode>
+    <BugCode abbrev="NNII">@Runnable Inconsistencyy</BugCode>
+   </MessageCollection>
