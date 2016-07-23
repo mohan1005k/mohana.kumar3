@@ -1,0 +1,10 @@
+<FindbugsPlugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="findbugsplugin.xsd"
+                pluginid="pl.itcrowd.findbugs.domain.NotNullInconsistency" provider="IT Crowd" website="http://itcrowd.pl/itcrowd-findbugs">
+
+    <Detector class="com.CNU2016.BugDetector.CustomDetector" reports="ThreadError,RunnableError"/>
+   <!-- <Detector class="com.CNU2016.BugDetector.Type2" reports="RunnableError"/> -->
+
+    <BugPattern type="ThreadError" abbrev="NNI" category="CORRECTNESS"/>
+    <BugPattern type="RunnableError" abbrev="NNII" category="CORRECTNESS"/>
+
+</FindbugsPlugin>
